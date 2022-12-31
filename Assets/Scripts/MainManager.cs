@@ -12,6 +12,7 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
     public GameObject GameOverText;
+    private MenuUI UIManager;
     
     private bool m_Started = false;
     private int m_Points;
@@ -22,6 +23,8 @@ public class MainManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        UIManager = GameObject.Find("ScoreManager").GetComponent<MenuUI>();
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -70,6 +73,15 @@ public class MainManager : MonoBehaviour
 
     public void GameOver()
     {
+        if (m_Points > UIManager.bestScore)
+        {
+            UIManager.bestScore = m_Points;
+            UIManager.SaveScore();
+
+            UIManager.bestPlayer = UIManager.playerName;
+            UIManager.SaveName();
+        }
+
         m_GameOver = true;
         GameOverText.SetActive(true);
     }

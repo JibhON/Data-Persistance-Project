@@ -6,10 +6,13 @@ using UnityEngine;
 public class DeathZone : MonoBehaviour
 {
     public MainManager Manager;
+    public MenuUI UI;
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        Destroy(other.gameObject);
-        Manager.GameOver();
+        {
+            Destroy(other.gameObject);
+            Manager.GameOver();
+        }
     }
 }
